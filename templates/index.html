@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+	<title>Document</title>
+</head>
+<style>
+	* {
+	    padding: 0;
+	    margin: 0; 
+	    font-family: Roboto, sans-serif;
+	    outline:none;
+	    a:link { color: none;
+	    text-decoration: none; }
+	    a:visited { color: none;
+	    text-decoration: none; }
+	    a:hover { color: none;
+	    text-decoration: none; }
+	    a:active { color: none;
+	    text-decoration: none; }
+	    box-sizing:border-box; 
+	    -moz-transition: background-color .2s .02s ease;
+	    -o-transition: background-color .2s .02s ease;
+	    -webkit-transition: background-color .2s .02s ease;
+	    -moz-transition: color .1s .02s ease;
+	    -o-transition: color .1s .02s ease;
+	    -webkit-transition: color .1s .02s ease;
+	}
+	header {
+		background: url('Screenshot_314.png') top center/cover no-repeat;
+		width: 1440px;
+		height: 753px;
+		margin: auto;
+	}
+	header h1 {
+		background-color: #507be8;
+		position: relative;
+		width: 300px;
+		height: 200px;
+		left: 85px;
+		top: 266px;
+
+		font-family: 'Roboto';
+		font-style: normal;
+		font-weight: 700;
+		font-size: 100px;
+		line-height: 100px;
+		color: #FFFFFF;
+		/* or 100% */
+	}
+
+	header h2 {
+		background-color: #507be8;
+		position: relative;
+		width: 309px;
+		height: 46px;
+		left: 85px;
+		top: 300px;
+
+		font-family: 'Roboto';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 23px;
+
+		color: #FFFFFF;
+	}
+
+	#h1 {
+		position: relative;
+		width: 1076px;
+		height: 116px;
+		left: 134px;
+		top: 69px;
+
+		font-family: 'Roboto';
+		font-style: normal;
+		font-weight: 700;
+		font-size: 100px;
+		line-height: 100px;
+		/* or 100% */
+
+
+		color: #1E1D2B;
+	}
+
+	#form_d {
+		height: 570px;
+		width: 1206px;
+		background-color: #507be8;
+		margin: auto; margin-top: 80px;
+		border-radius: 30px;
+	}
+
+	textarea {
+		padding: 15px;
+		font-size: 1.2em;
+		width: 687px;
+		height: 388px;
+		border-radius: 30px;
+		border-width: 0px;
+		margin: 40px 0 0 30px;
+		resize: none;
+		background-color: #faf6f2;
+	}
+
+	body {
+		padding-bottom: 150px;
+		background-color: #faf6f2;
+	}
+	button {
+		display: block;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		border: 1px solid transparent;
+		border-radius: 30px;
+		width: 412px;
+		height: 49px;
+		background-color: #1E1D2B;
+		color: white;
+		font-size: 20px;
+		margin-top: 30px;
+		margin-left: 180px;
+		cursor: pointer;
+
+	}
+
+	.f1, .f2 {
+		float: left;
+	}
+
+	.f2 #res {
+		color: white;
+		font-size: 36px;
+		padding: 35px 0 0 30px;
+		display: block;
+	}
+
+	.f2 p {
+		font-size: 30px;
+		line-height: 70px;
+		padding: 0px 0 0 30px;
+	}
+
+	#lang {
+		padding-top: 30px;
+	}
+
+
+</style>
+<body>
+	<header>
+	<h1>Test<br> project</h1>
+	<h2>Тестовое задание для продукта<br> Adstetica</h2>
+	</header>
+	<div style="width: 1440px; margin: auto;">
+		<h1 id="h1">Вставьте текст в поле</h1>
+		<div id="form_d">
+			<div class="f1">
+				<textarea name="" id="textar" cols="30" rows="10"></textarea>
+				<button id="btn">Проанализировать</button>
+			</div>
+			<div class="f2">
+				<span id="res">Результаты анализа</span>
+				<p id="lang">Язык: </p>
+				<p id="topic">Тема: </p>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+
+	document.getElementById("btn").onclick = analise;
+	
+	async function analise() {
+
+		let text = document.getElementById("textar").value;
+
+		if (!text) return;
+
+		let response = await fetch(`/api/analise?text="${text}"`, {
+			method: 'GET'
+		})
+
+		let result = await response.json();
+		let lang = `Язык: ${result['lang']}`;
+		let topic = `Тема: ${result['topic']}`;
+
+
+		document.getElementById("lang").textContent = lang;
+		document.getElementById("topic").textContent = topic;
+	}
+
+</script>
+</html>
