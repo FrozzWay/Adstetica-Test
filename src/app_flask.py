@@ -1,5 +1,4 @@
 from flask import Flask, render_template, send_from_directory
-from src.neuronet import Neuronet
 from blueprints.api import bp as api
 import os, re
 
